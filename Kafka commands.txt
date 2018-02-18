@@ -1,0 +1,87 @@
+Running kafka server:
+====================
+.\bin\windows\kafka-server-start.bat .\config\server.properties
+
+Create Topic:
+============
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic anshumanTopic
+
+List Topics: 
+===========
+kafka-topics.bat --list --zookeeper localhost:2181
+
+Describe Topic: 
+==============
+kafka-topics.bat --describe --zookeeper localhost:2181 --topic [Topic Name]
+
+Read messages from beginning:
+============================ 
+kafka-console-consumer.bat --zookeeper localhost:2181 --topic [Topic Name] --from-beginning
+
+Delete Topic:
+============ 
+kafka-run-class.bat kafka.admin.TopicCommand --delete --topic [topic_to_delete] --zookeeper localhost:2181
+
+Why Zookeeper:
+=============
+- Kafka uses Zookeeper to do leadership election of Kafka Broker
+- Topic Partition pairs
+- Kafka uses Zookeeper to manage service discovery for Kafka Brokers that form the cluster
+- Zookeeper sends changes of the topology to Kafka, so each node in the cluster knows when a new broker joined, a Broker died, a topic was removed or a topic was added.
+- Zookeeper provides an in-sync view of Kafka 
+- Kafka uses ZooKeeper to manage the cluster. 
+- ZooKeeper is used to coordinate the brokers/cluster topology. 
+- ZooKeeper is a consistent file system for configuration information. 
+- ZooKeeper gets used for leadership election for Broker Topic Partition Leaders.
+
+Topic:
+=====
+- Kafka producers write to Topics. Kafka consumers read from Topics. 
+- A topic is associated with a log which is data structure on disk. 
+- A topic log consists of many partitions that are spread over multiple files which can be spread on multiple Kafka cluster nodes.
+- Consumers can read records from Kafka topics at their cadence and can pick where they are (offset) in the topic log. 
+- Each consumer group tracks offset from where they left off reading.
+- Kafka distributes topic log partitions on different nodes in a cluster for high performance with horizontal scalability.
+- Spreading partitions aids in writing data quickly
+- Topic log partitions are Kafka way to shard reads and writes to the topic log.
+- Partitions are needed to have multiple consumers in a consumer group work at the same time. Kafka replicates partitions to many nodes to provide failover.
+
+- Kafka topic is a named stream of records. 
+- Kafka stores topics in logs. 
+- A topic log is broken up into partitions. Kafka spreads log’s partitions across multiple servers or disks.
+- Topics are inherently published and subscribe style messaging.
+- Kafka breaks topic logs up into partitions. A record is stored on a partition usually by Record-Key if the key is present.  And round-robin if the key is missing (default behavior).
+- The record key, by default, determines which partition a producer sends the record.
+- The order guaranteed per partition. If partitioning is by key then all records for that key will be on the same partition which is useful if you ever have to replay the log.
+- Kafka maintains record's order only in a single partition. A partition is an ORDERED, IMMUTABLE record sequence. Kafka continually appended to partitions using the partition as a structured commit log. 
+- Records in partitions are assigned sequential id number called the offset. 
+- The offset identifies each record location within the partition. 
+- A topic's partition must fit on server that host it, but topics can span many partitions hosted on many servers.
+- A partition can only be worked on by one consumer in a consumer group at a time. If a consumer stops, Kafka spreads partitions across the remaining consumer in the same consumer group.
+
+PARTITION:
+=========
+- Kafka can replicate partitions across a configurable number of Kafka servers which is used for fault tolerance. 
+- Each partition has a LEADER-SERVER and zero/more FOLLOWER-SERVERS. 
+- Leaders handle all read and write requests for a partition. Followers replicate leaders and take over if the leader dies.
+- Kafka chooses one broker’s partition’s replicas as LEADER using ZooKeeper.
+- The broker that has the partition leader handles all reads and writes of records for the partition. 
+- Kafka replicates writes to the leader partition to followers (node/partition pair). 
+- A follower that is in-sync is called an ISR (in-sync replica). If a partition leader fails, Kafka chooses a new ISR as the new leader.
+- The record is considered "committed" when all ISRs for partition wrote to their log. Only committed records are readable from consumer. 
+- Another partition can be owned by another leader on another Kafka Broker.
+- Kafka scales consumers by partition such that each consumer gets its share of partitions. A consumer can have more than one partition, but a partition can only be used by one consumer in a consumer group at a time. If you only have one partition, then you can only have one consumer.
+
+CONSUMERs:
+=========
+- Consumer groups have names to identify them from other consumer groups.
+- Each consumer group is a subscriber to one or more Kafka topics.
+- Each consumer group maintains its offset per topic partition.
+- A record gets delivered to only one consumer in a consumer group.
+- Each consumer in a consumer group processes records and only one consumer in that group will get the same record. Consumers in a consumer group load balance record processing.
+- Consumers remember offset where they left off reading. 
+- Consumers groups each have their own offset per partition.
+- Consumer membership within a consumer group is handled by the Kafka protocol dynamically. If new consumers join a consumer group, it gets a share of partitions. If a consumer dies, its partitions are split among the remaining live consumers in the consumer group. This is how Kafka does fail over of consumers in a consumer group.
+- Kafka consumer consumption divides partitions over consumer instances within a consumer group.
+
+
