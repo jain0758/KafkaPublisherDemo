@@ -2,13 +2,13 @@ Running kafka server:
 ====================
 .\bin\windows\kafka-server-start.bat .\config\server.properties
 
-Create Topic:
-============
-kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic anshumanTopic
-
 List Topics: 
 ===========
 kafka-topics.bat --list --zookeeper localhost:2181
+
+Create Topic:
+============
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic anshumanTopic
 
 Describe Topic: 
 ==============
@@ -21,6 +21,10 @@ kafka-console-consumer.bat --zookeeper localhost:2181 --topic [Topic Name] --fro
 Delete Topic:
 ============ 
 kafka-run-class.bat kafka.admin.TopicCommand --delete --topic [topic_to_delete] --zookeeper localhost:2181
+
+GREP like command in window:
+===========================
+findstr mkyong c:\folder\*
 
 Why Zookeeper:
 =============
@@ -82,6 +86,6 @@ CONSUMERs:
 - Consumers remember offset where they left off reading. 
 - Consumers groups each have their own offset per partition.
 - Consumer membership within a consumer group is handled by the Kafka protocol dynamically. If new consumers join a consumer group, it gets a share of partitions. If a consumer dies, its partitions are split among the remaining live consumers in the consumer group. This is how Kafka does fail over of consumers in a consumer group.
-- Kafka consumer consumption divides partitions over consumer instances within a consumer group.
+- Kafka consumer-consumption divides partitions over consumer instances within a consumer group.
 
 

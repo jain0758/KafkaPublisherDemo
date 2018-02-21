@@ -6,7 +6,7 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 
 public class Utils
 {
-	public static Properties getConnectionProperties(String clientId, String bootstrap, String key, String value)
+	public static Properties getConfig(String clientId, String bootstrap, String key, String value)
 	{
 		Properties props = new Properties();
 		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrap);

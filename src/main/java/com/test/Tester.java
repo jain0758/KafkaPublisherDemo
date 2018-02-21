@@ -1,23 +1,28 @@
 package com.test;
 
-import org.apache.kafka.common.serialization.IntegerSerializer;
+import org.springframework.boot.Banner;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.fasterxml.jackson.databind.JsonSerializer;
 import com.publisher.MyKafkaPublisher;
 
-public class Tester
+@SpringBootApplication
+public class Tester implements CommandLineRunner
 {
-	private final static String TOPIC = "anshumanTopic";
-	private final static String BOOTSTRAP = "localhost:9092";
-	private final static String KEY_SERIALIZER = IntegerSerializer.class.getName(); 
-	private final static String VALUE_SERIALIZER = IntegerSerializer.class.getName();;//JsonSerializer.class.getName();
-	
-	
 	public static void main(String[] args)
 	{
-		MyKafkaPublisher publisher = new MyKafkaPublisher(); 
+		SpringApplication application = new SpringApplication(Tester.class);
+		application.setBannerMode(Banner.Mode.OFF);
+		application.run(args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception
+	{
+		MyKafkaPublisher publisher = new MyKafkaPublisher();
 		System.out.println("Publishing starts ...");
-		publisher.publish(TOPIC, BOOTSTRAP, KEY_SERIALIZER, VALUE_SERIALIZER);
+		publisher.publish();
 		System.out.println("Published.");
 	}
 }
