@@ -24,6 +24,17 @@ public class Player
 		this.age = age;
 		this.height = height;
 	}
+	
+	public static Player getPlayer(int jerseyNumber)
+	{
+		Player player = new Player();
+		player.setName("Virat");
+		player.setAge(34);
+		player.setHeight(5.10);
+		player.setJerseyNumber(jerseyNumber);
+		player.setSportName("Cricket");
+		return player;
+	}
 
 	public double getHeight()
 	{

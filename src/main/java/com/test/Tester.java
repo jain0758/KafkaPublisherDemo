@@ -21,8 +21,8 @@ public class Tester implements CommandLineRunner
 	public void run(String... args) throws Exception
 	{
 		MyKafkaPublisher publisher = new MyKafkaPublisher();
-		System.out.println("Publishing starts ...");
+		System.out.println(" ########## Publishing Records ########## ");
 		publisher.publish();
-		System.out.println("Published.");
+		System.out.println(" ########## Published Records ########## ");
 	}
 }

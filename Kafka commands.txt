@@ -1,3 +1,9 @@
+First Run zookeeper server :
+==========================
+.\bin\zkServer.cmd 
+or
+Add E:\zookeeper-3.3.6\bin to PATH and run "zkserver" on command prompt
+
 Running kafka server:
 ====================
 .\bin\windows\kafka-server-start.bat .\config\server.properties
@@ -12,15 +18,15 @@ kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --pa
 
 Describe Topic: 
 ==============
-kafka-topics.bat --describe --zookeeper localhost:2181 --topic [Topic Name]
+kafka-topics.bat --describe --zookeeper localhost:2181 --topic anshumanTopic
 
 Read messages from beginning:
 ============================ 
-kafka-console-consumer.bat --zookeeper localhost:2181 --topic [Topic Name] --from-beginning
+kafka-console-consumer.bat --zookeeper localhost:2181 --topic anshumanTopic --from-beginning
 
 Delete Topic:
 ============ 
-kafka-run-class.bat kafka.admin.TopicCommand --delete --topic [topic_to_delete] --zookeeper localhost:2181
+kafka-run-class.bat kafka.admin.TopicCommand --delete --topic anshumanTopic --zookeeper localhost:2181
 
 GREP like command in window:
 ===========================
