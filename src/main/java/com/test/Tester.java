@@ -5,7 +5,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.publisher.MyKafkaPublisher;
+import com.publisher.KafkaPublisher;
+import com.publisher.JsonPublisher;
 
 @SpringBootApplication
 public class Tester implements CommandLineRunner
@@ -20,7 +21,8 @@ public class Tester implements CommandLineRunner
 	@Override
 	public void run(String... args) throws Exception
 	{
-		MyKafkaPublisher publisher = new MyKafkaPublisher();
+		KafkaPublisher publisher = new JsonPublisher();
+		//KafkaPublisher publisher = new AvroPublisher();
 		System.out.println(" ########## Publishing Records ########## ");
 		publisher.publish();
 		System.out.println(" ########## Published Records ########## ");

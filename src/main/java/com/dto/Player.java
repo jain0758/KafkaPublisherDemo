@@ -1,5 +1,6 @@
 package com.dto;
 
+
 public class Player
 {
 	private int jerseyNumber;
@@ -79,7 +80,17 @@ public class Player
 	@Override
 	public String toString()
 	{
-		return "Player [name="+name+", jerseyNumber=" + jerseyNumber + ", sportName=" + sportName + ", age=" + age + ", height=" + height + "]";
+		return new StringBuilder("Player [name=")
+		.append(name)
+		.append(", jerseyNumber=")
+		.append(jerseyNumber)
+		.append(", sportName=")
+		.append(sportName)
+		.append(", age=")
+		.append(age)
+		.append(", height=")
+		.append(height)
+		.append("]").toString();
 	}
 
 	public String getName()
