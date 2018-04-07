@@ -34,17 +34,12 @@
 			<version>1.0.0</version>
 		</dependency>
 		
-		<!-- <dependency>
-			<groupId>org.apache.kafka</groupId>
-			<artifactId>kafka_2.11</artifactId>
-			<version>0.10.0.1</version>
-		</dependency> -->
-		
 		<dependency>
 			<groupId>org.apache.avro</groupId>
 			<artifactId>avro</artifactId>
 			<version>1.8.2</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.apache.avro</groupId>
 			<artifactId>avro-maven-plugin</artifactId>
@@ -52,15 +47,4 @@
 		</dependency>
 	</dependencies>
 
-	<build>
-		<resources>
-			<resource>
-				<directory>resources</directory>
-				<targetPath>${project.build.outputDirectory}</targetPath>
-				<includes>
-					<include>application.properties</include>
-				</includes>
-			</resource>
-		</resources>
-	</build>
 </project>
