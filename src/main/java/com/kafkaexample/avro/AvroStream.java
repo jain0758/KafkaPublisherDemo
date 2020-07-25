@@ -4,5 +4,5 @@ import java.io.ByteArrayOutputStream;
 
 public interface AvroStream
 {
-	public ByteArrayOutputStream generateAvroStream();
+	ByteArrayOutputStream generateAvroStream();
 }

@@ -32,6 +32,23 @@ GREP like command in window:
 ===========================
 findstr mkyong c:\folder\*
 
+Kafka Commands on mac:
+=====================
+Start zookeeper:
+./zkServer.sh start-foreground
+
+Start kafka broker:
+./kafka-server-start.sh ..//config//server.properties
+
+Create topic wth name 'test':
+./kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic anshumanTopic
+
+Start kafka-console-producer:
+./kafka-console-producer.sh --broker-list localhost:9092 --topic test
+
+Start kafka-console-consumer:
+./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test
+
 Why Zookeeper:
 =============
 - Kafka uses Zookeeper to do leadership election of Kafka Broker
@@ -58,7 +75,7 @@ Topic:
 
 - Kafka topic is a named stream of records. 
 - Kafka stores topics in logs. 
-- A topic log is broken up into partitions. Kafka spreads log’s partitions across multiple servers or disks.
+- A topic log is broken up into partitions. Kafka spreads logï¿½s partitions across multiple servers or disks.
 - Topics are inherently published and subscribe style messaging.
 - Kafka breaks topic logs up into partitions. A record is stored on a partition usually by Record-Key if the key is present.  And round-robin if the key is missing (default behavior).
 - The record key, by default, determines which partition a producer sends the record.
@@ -74,7 +91,7 @@ PARTITION:
 - Kafka can replicate partitions across a configurable number of Kafka servers which is used for fault tolerance. 
 - Each partition has a LEADER-SERVER and zero/more FOLLOWER-SERVERS. 
 - Leaders handle all read and write requests for a partition. Followers replicate leaders and take over if the leader dies.
-- Kafka chooses one broker’s partition’s replicas as LEADER using ZooKeeper.
+- Kafka chooses one brokerï¿½s partitionï¿½s replicas as LEADER using ZooKeeper.
 - The broker that has the partition leader handles all reads and writes of records for the partition. 
 - Kafka replicates writes to the leader partition to followers (node/partition pair). 
 - A follower that is in-sync is called an ISR (in-sync replica). If a partition leader fails, Kafka chooses a new ISR as the new leader.

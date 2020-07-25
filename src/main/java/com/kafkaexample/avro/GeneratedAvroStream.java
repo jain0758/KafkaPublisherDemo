@@ -1,14 +1,14 @@
 package com.kafkaexample.avro;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-
 import org.apache.avro.Schema;
 import org.apache.avro.file.DataFileWriter;
 import org.apache.avro.generic.GenericDatumWriter;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.io.DatumWriter;
 import org.springframework.stereotype.Component;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 @Component(value="generatedAvroStream")
 public class GeneratedAvroStream implements AvroStream
@@ -46,8 +46,8 @@ public class GeneratedAvroStream implements AvroStream
 	private DataFileWriter<GenericRecord> getDataFileWriter(Schema schema)
 	{
 		// Encode the data using JSON schema and embed the schema as metadata along with the data.
-		DatumWriter<GenericRecord> writer = new GenericDatumWriter<GenericRecord>(schema);
-		DataFileWriter<GenericRecord> dataFileWriter = new DataFileWriter<GenericRecord>(writer);
+		DatumWriter<GenericRecord> writer = new GenericDatumWriter<>(schema);
+		DataFileWriter<GenericRecord> dataFileWriter = new DataFileWriter<>(writer);
 		return dataFileWriter;
 	}
 
